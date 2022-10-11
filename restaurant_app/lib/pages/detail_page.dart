@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/common/style.dart';
+import 'package:restaurant_app/models/restaurant_model.dart';
+import 'package:restaurant_app/commons/style.dart';
 import 'package:restaurant_app/widgets/item_list.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+  final Restaurant restaurant;
+
+  const DetailPage(this.restaurant, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,15 +14,11 @@ class DetailPage extends StatelessWidget {
       return Column(
         children: [
           Stack(
-            children: <Widget>[
+            children: [
               ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
                 child: Center(
-                  child: Image.asset(
-                    "assets/images/restaurant.png",
+                  child: Image.network(
+                    restaurant.pictureId,
                   ),
                 ),
               ),
@@ -78,7 +77,7 @@ class DetailPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Restaurant 1",
+                          restaurant.name,
                           style: primaryTextStyle.copyWith(
                             fontSize: 18,
                             fontWeight: semiBold,
@@ -98,7 +97,7 @@ class DetailPage extends StatelessWidget {
                               width: 2,
                             ),
                             Text(
-                              "St. Penburg",
+                              restaurant.city,
                               style: subtitleTextStyle.copyWith(
                                 fontSize: 12,
                               ),
@@ -120,7 +119,7 @@ class DetailPage extends StatelessWidget {
                               width: 2,
                             ),
                             Text(
-                              "4.6",
+                              restaurant.rating.toString(),
                               style: subtitleTextStyle.copyWith(
                                 fontSize: 12,
                               ),
@@ -144,7 +143,7 @@ class DetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Deskripsi',
+                    'Description',
                     style: primaryTextStyle.copyWith(
                       fontWeight: semiBold,
                     ),
@@ -153,7 +152,7 @@ class DetailPage extends StatelessWidget {
                     height: 12,
                   ),
                   Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam faucibus, neque ut congue egestas, lacus tortor pulvinar erat, accumsan gravida est quam in mauris. Cras ac dui ullamcorper, facilisis tellus sit amet, dapibus mi. Mauris et vulputate libero. Curabitur ac nisi ut urna cursus bibendum nec non ante.",
+                    restaurant.description,
                     style: subtitleTextStyle,
                     textAlign: TextAlign.justify,
                   ),
@@ -182,6 +181,8 @@ class DetailPage extends StatelessWidget {
     }
 
     Widget foodList() {
+      String type = 'food';
+
       return Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -198,12 +199,11 @@ class DetailPage extends StatelessWidget {
           child: Column(
             children: [
               Row(
-                children: const [
-                  ItemList(),
-                  ItemList(),
-                  ItemList(),
-                  ItemList(),
-                ],
+                children: restaurant.menus.foods
+                    .map(
+                      (food) => ItemList(type, food),
+                    )
+                    .toList(),
               ),
             ],
           ),
@@ -212,6 +212,8 @@ class DetailPage extends StatelessWidget {
     }
 
     Widget drinkList() {
+      String type = 'drink';
+
       return Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -226,12 +228,15 @@ class DetailPage extends StatelessWidget {
             bottom: defaultMargin,
           ),
           scrollDirection: Axis.horizontal,
-          child: Row(
-            children: const [
-              ItemList(),
-              ItemList(),
-              ItemList(),
-              ItemList(),
+          child: Column(
+            children: [
+              Row(
+                children: restaurant.menus.drinks
+                    .map(
+                      (item) => ItemList(type, item),
+                    )
+                    .toList(),
+              ),
             ],
           ),
         ),
@@ -239,6 +244,7 @@ class DetailPage extends StatelessWidget {
     }
 
     return Material(
+      color: whiteColor,
       child: ListView(
         children: [
           imageHeader(),

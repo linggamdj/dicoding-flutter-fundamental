@@ -1,38 +1,22 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/common/style.dart';
+import 'package:restaurant_app/commons/style.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:restaurant_app/pages/main_page.dart';
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
-
-  @override
-  State<SplashPage> createState() => _SplashPageState();
-}
-
-class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    Timer(
-      const Duration(seconds: 2),
-      () => Navigator.pushReplacementNamed(context, '/main_page'),
-    );
-
-    super.initState();
-  }
+class SplashPage extends StatelessWidget {
+  const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AnimatedSplashScreen(
       backgroundColor: whiteColor,
-      body: Center(
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/logo.png'),
-            ),
-          ),
-        ),
+      splash: Image.asset(
+        'assets/images/logo.png',
       ),
+      splashIconSize: 500.0,
+      nextScreen: const MainPage(),
+      splashTransition: SplashTransition.fadeTransition,
+      duration: 2000,
     );
   }
 }

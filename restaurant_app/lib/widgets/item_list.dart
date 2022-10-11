@@ -1,8 +1,12 @@
-import 'package:restaurant_app/common/style.dart';
+import 'package:restaurant_app/commons/style.dart';
+import 'package:restaurant_app/models/restaurant_model.dart';
 import 'package:flutter/material.dart';
 
 class ItemList extends StatelessWidget {
-  const ItemList({super.key});
+  final String type;
+  final Drink item;
+
+  const ItemList(this.type, this.item, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,9 @@ class ItemList extends StatelessWidget {
               topRight: Radius.circular(10),
             ),
             child: Image.asset(
-              "assets/images/restaurant.png",
+              type == 'food'
+                  ? "assets/images/thumb_food.png"
+                  : "assets/images/thumb_drink.png",
               width: 150,
             ),
           ),
@@ -37,7 +43,7 @@ class ItemList extends StatelessWidget {
               vertical: 5,
             ),
             child: Text(
-              "Nama Item",
+              item.name,
               style: primaryTextStyle.copyWith(
                 fontSize: 12,
               ),

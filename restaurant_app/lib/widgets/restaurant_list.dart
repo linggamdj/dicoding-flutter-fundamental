@@ -1,9 +1,12 @@
-import 'package:restaurant_app/common/style.dart';
+import 'package:restaurant_app/commons/style.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/models/restaurant_model.dart';
 import 'package:restaurant_app/pages/detail_page.dart';
 
 class RestaurantList extends StatelessWidget {
-  const RestaurantList({super.key});
+  final Restaurant restaurant;
+
+  const RestaurantList(this.restaurant, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,22 +15,22 @@ class RestaurantList extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DetailPage(),
+            builder: (context) => DetailPage(restaurant),
           ),
         );
       },
       child: Container(
         margin: EdgeInsets.only(
+          top: 15,
           left: defaultMargin,
           right: defaultMargin,
-          bottom: defaultMargin,
         ),
         child: Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: const Image(
-                image: AssetImage('assets/images/restaurant.png'),
+              child: Image.network(
+                restaurant.pictureId,
                 width: 100,
                 height: 100,
                 fit: BoxFit.cover,
@@ -40,13 +43,20 @@ class RestaurantList extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Nama Restoran',
-                    style: primaryTextStyle.copyWith(
-                      color: primaryColor,
-                      fontSize: 16,
-                      fontWeight: semiBold,
-                    ),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        restaurant.name,
+                        style: primaryTextStyle.copyWith(
+                          color: primaryColor,
+                          fontSize: 16,
+                          fontWeight: semiBold,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 6,
@@ -61,7 +71,7 @@ class RestaurantList extends StatelessWidget {
                         width: 5,
                       ),
                       Text(
-                        'Jakarta',
+                        restaurant.city,
                         style: subtitleTextStyle.copyWith(
                           fontSize: 16,
                         ),
@@ -82,7 +92,7 @@ class RestaurantList extends StatelessWidget {
                         width: 5,
                       ),
                       Text(
-                        '4.6',
+                        restaurant.rating.toString(),
                         style: subtitleTextStyle.copyWith(
                           fontSize: 16,
                         ),

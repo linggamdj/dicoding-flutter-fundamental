@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'pages/main_page.dart';
 import 'pages/splash_page.dart';
 
 void main() => runApp(const MyApp());
@@ -13,7 +12,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const SplashPage(),
-        '/main_page': (context) => const MainPage(),
       },
     );
   }
