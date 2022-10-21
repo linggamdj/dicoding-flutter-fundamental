@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'common/style.dart';
-import 'models/article_model.dart';
+import 'data/models/article_model.dart';
 import 'ui/home_page.dart';
 import 'ui/article_detail_page.dart';
 import 'ui/article_web_view.dart';
