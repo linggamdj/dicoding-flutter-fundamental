@@ -1,11 +1,7 @@
-import 'package:news_app/common/style.dart';
-import 'package:news_app/data/models/article_model.dart';
 import 'package:news_app/provider/news_provider.dart';
-import 'article_detail_page.dart';
 import 'package:news_app/widgets/platform_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/data/api/api_service.dart';
 import 'package:news_app/widgets/card_article.dart';
 import 'package:provider/provider.dart';
 

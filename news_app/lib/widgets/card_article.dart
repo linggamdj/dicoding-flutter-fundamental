@@ -6,7 +6,7 @@ import 'package:news_app/ui/article_detail_page.dart';
 class CardArticle extends StatelessWidget {
   final Article article;
 
-  const CardArticle({required this.article});
+  const CardArticle({Key? key, required this.article}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
