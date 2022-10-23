@@ -1,6 +1,9 @@
+import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app/widgets/restaurant_list.dart';
+import 'package:restaurant_app/widgets/error_message.dart';
 import 'package:restaurant_app/commons/style.dart';
-import 'package:restaurant_app/models/restaurant_model.dart';
+import 'package:restaurant_app/data/models/restaurant_model.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -10,25 +13,26 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(),
-      body: FutureBuilder<String>(
-        future: DefaultAssetBundle.of(context)
-            .loadString('assets/local_restaurant.json'),
-        builder: (context, snapshot) {
-          final List<Restaurant> restaurants = parseRestaurants(snapshot.data);
-          return restaurants.isNotEmpty
-              ? ListView.builder(
-                  itemCount: restaurants.length,
-                  itemBuilder: (context, index) {
-                    return buildRestaurantItem(context, restaurants[index]);
-                  },
-                )
-              : Center(
-                  child: Text(
-                    'Terjadi Kesalahan pada Server',
-                    style: primaryTextStyle.copyWith(
-                        fontSize: 20, fontWeight: semiBold),
-                  ),
-                );
+      body: Consumer<RestaurantProvider>(
+        builder: (context, state, _) {
+          if (state.state == ResultState.loading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state.state == ResultState.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.result.restaurants.length,
+              itemBuilder: (context, index) {
+                var restaurant = state.result.restaurants[index];
+                return buildRestaurantItem(context, restaurant);
+              },
+            );
+          } else if (state.state == ResultState.noData) {
+            return const ErrorMessage('Data Not Found. Internal Server Error');
+          } else if (state.state == ResultState.error) {
+            return const ErrorMessage('There is no Internet connection');
+          } else {
+            return const ErrorMessage('Internal Server Error');
+          }
         },
       ),
     );

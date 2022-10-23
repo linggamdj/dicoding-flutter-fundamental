@@ -1,6 +1,6 @@
 import 'package:restaurant_app/commons/style.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/models/restaurant_model.dart';
+import 'package:restaurant_app/data/models/restaurant_model.dart';
 import 'package:restaurant_app/pages/detail_page.dart';
 
 class RestaurantList extends StatelessWidget {
@@ -15,7 +15,7 @@ class RestaurantList extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailPage(restaurant),
+            builder: (context) => DetailPage(restaurant.id),
           ),
         );
       },
@@ -30,7 +30,7 @@ class RestaurantList extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
-                restaurant.pictureId,
+                'https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}',
                 width: 100,
                 height: 100,
                 fit: BoxFit.cover,

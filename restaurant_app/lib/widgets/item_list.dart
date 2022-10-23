@@ -1,10 +1,10 @@
 import 'package:restaurant_app/commons/style.dart';
-import 'package:restaurant_app/models/restaurant_model.dart';
+import 'package:restaurant_app/data/models/restaurant_detail_model.dart';
 import 'package:flutter/material.dart';
 
 class ItemList extends StatelessWidget {
   final String type;
-  final Drink item;
+  final Category item;
 
   const ItemList(this.type, this.item, {super.key});
 
