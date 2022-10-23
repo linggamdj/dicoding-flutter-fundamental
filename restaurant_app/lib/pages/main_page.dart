@@ -12,7 +12,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(),
+      appBar: customAppBar(context),
       body: Consumer<RestaurantProvider>(
         builder: (context, state, _) {
           if (state.state == ResultState.loading) {
@@ -38,7 +38,7 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  customAppBar() {
+  customAppBar(context) {
     return AppBar(
       elevation: 2,
       titleSpacing: 0,
@@ -65,6 +65,7 @@ class MainPage extends StatelessWidget {
           ),
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Column(
@@ -88,6 +89,16 @@ class MainPage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.search_outlined,
+                size: 35,
+              ),
+              color: whiteColor,
+              onPressed: () {
+                Navigator.pushNamed(context, '/search');
+              },
             ),
           ],
         ),
