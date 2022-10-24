@@ -11,7 +11,10 @@ class ErrorMessage extends StatelessWidget {
     return Center(
       child: Text(
         message,
-        style: primaryTextStyle.copyWith(fontSize: 20, fontWeight: semiBold),
+        style: primaryTextStyle.copyWith(
+          fontSize: 16,
+          fontWeight: semiBold,
+        ),
       ),
     );
   }

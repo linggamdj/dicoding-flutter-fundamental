@@ -1,7 +1,7 @@
-import 'package:restaurant_app/commons/style.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/data/models/restaurant_model.dart';
+import 'package:restaurant_app/commons/style.dart';
 import 'package:restaurant_app/pages/detail_page.dart';
+import 'package:restaurant_app/data/models/restaurant_model.dart';
 
 class RestaurantList extends StatelessWidget {
   final Restaurant restaurant;

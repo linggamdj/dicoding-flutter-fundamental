@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/commons/style.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:restaurant_app/commons/style.dart';
 import 'package:restaurant_app/pages/main_page.dart';
 
 class SplashPage extends StatelessWidget {

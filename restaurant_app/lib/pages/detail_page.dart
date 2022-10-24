@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/data/models/restaurant_detail_model.dart';
-import 'package:restaurant_app/provider/restaurant_detail_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app/commons/style.dart';
 import 'package:restaurant_app/widgets/error_message.dart';
 import 'package:restaurant_app/widgets/item_list.dart';
-import 'package:restaurant_app/data/api/api_service.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurant_app/widgets/review_list.dart';
+import 'package:restaurant_app/data/api/api_service.dart';
+import 'package:restaurant_app/data/models/restaurant_detail_model.dart';
+import 'package:restaurant_app/provider/restaurant_detail_provider.dart';
 
 class DetailPage extends StatelessWidget {
   final String id;
@@ -15,26 +15,32 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<RestaurantDetailProvider>(
-      create: (context) =>
-          RestaurantDetailProvider(apiService: ApiService(), id: id),
-      child: Consumer<RestaurantDetailProvider>(
-        builder: (context, state, _) {
-          if (state.state == ResultState.loading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state.state == ResultState.hasData) {
-            return ListView.builder(
-              shrinkWrap: false,
-              itemCount: 1,
-              itemBuilder: (context, index) {
-                var detail = state.result.restaurant;
-                return buildRestaurantDetailItem(context, detail);
-              },
-            );
-          } else {
-            return const ErrorMessage('Internal Server Error');
-          }
-        },
+    return Material(
+      child: ChangeNotifierProvider<RestaurantDetailProvider>(
+        create: (context) =>
+            RestaurantDetailProvider(apiService: ApiService(), id: id),
+        child: Consumer<RestaurantDetailProvider>(
+          builder: (context, state, _) {
+            if (state.state == ResultState.loading) {
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(whiteColor),
+                ),
+              );
+            } else if (state.state == ResultState.hasData) {
+              return ListView.builder(
+                shrinkWrap: false,
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  var detail = state.result.restaurant;
+                  return buildRestaurantDetailItem(context, detail);
+                },
+              );
+            } else {
+              return const ErrorMessage('There is no Internet connection');
+            }
+          },
+        ),
       ),
     );
   }
@@ -47,7 +53,7 @@ class DetailPage extends StatelessWidget {
             ClipRRect(
               child: Center(
                 child: Image.network(
-                  'https://restaurant-api.dicoding.dev/images/large/$id',
+                  'https://restaurant-api.dicoding.dev/images/medium/$id',
                 ),
               ),
             ),
@@ -194,18 +200,22 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  Widget itemTitle(String title) {
+  Widget itemTitle(String title, [context]) {
     return Container(
       margin: EdgeInsets.only(
         top: defaultMargin,
         left: defaultMargin,
         bottom: 12,
       ),
-      child: Text(
-        title,
-        style: primaryTextStyle.copyWith(
-          fontWeight: semiBold,
-        ),
+      child: Row(
+        children: [
+          Text(
+            title,
+            style: primaryTextStyle.copyWith(
+              fontWeight: semiBold,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -305,7 +315,7 @@ class DetailPage extends StatelessWidget {
           foodList(detail),
           itemTitle('Drinks'),
           drinkList(detail),
-          itemTitle('Customer Reviews'),
+          itemTitle('Reviews', context),
           reviewList(detail),
         ],
       ),

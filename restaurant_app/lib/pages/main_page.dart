@@ -1,10 +1,10 @@
-import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/commons/style.dart';
 import 'package:restaurant_app/widgets/restaurant_list.dart';
 import 'package:restaurant_app/widgets/error_message.dart';
-import 'package:restaurant_app/commons/style.dart';
 import 'package:restaurant_app/data/models/restaurant_model.dart';
-import 'package:flutter/material.dart';
+import 'package:restaurant_app/provider/restaurant_provider.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -16,7 +16,11 @@ class MainPage extends StatelessWidget {
       body: Consumer<RestaurantProvider>(
         builder: (context, state, _) {
           if (state.state == ResultState.loading) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+              ),
+            );
           } else if (state.state == ResultState.hasData) {
             return ListView.builder(
               shrinkWrap: true,
