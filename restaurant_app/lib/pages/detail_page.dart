@@ -200,7 +200,7 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  Widget itemTitle(String title, [context]) {
+  Widget itemTitle(String title) {
     return Container(
       margin: EdgeInsets.only(
         top: defaultMargin,
@@ -315,7 +315,7 @@ class DetailPage extends StatelessWidget {
           foodList(detail),
           itemTitle('Drinks'),
           drinkList(detail),
-          itemTitle('Reviews', context),
+          itemTitle('Reviews'),
           reviewList(detail),
         ],
       ),
