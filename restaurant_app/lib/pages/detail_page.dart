@@ -24,7 +24,7 @@ class DetailPage extends StatelessWidget {
             if (state.state == ResultState.loading) {
               return Center(
                 child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(whiteColor),
+                  valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
                 ),
               );
             } else if (state.state == ResultState.hasData) {
