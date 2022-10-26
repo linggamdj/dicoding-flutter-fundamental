@@ -15,27 +15,30 @@ class MainPage extends StatelessWidget {
       appBar: customAppBar(context),
       body: Consumer<RestaurantProvider>(
         builder: (context, state, _) {
-          if (state.state == ResultState.loading) {
-            return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
-              ),
-            );
-          } else if (state.state == ResultState.hasData) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: state.result.restaurants.length,
-              itemBuilder: (context, index) {
-                var restaurant = state.result.restaurants[index];
-                return buildRestaurantItem(context, restaurant);
-              },
-            );
-          } else if (state.state == ResultState.noData) {
-            return const ErrorMessage('Data Not Found. Internal Server Error');
-          } else if (state.state == ResultState.error) {
-            return const ErrorMessage('There is no Internet connection');
-          } else {
-            return const ErrorMessage('Internal Server Error');
+          switch (state.state) {
+            case ResultState.loading:
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                ),
+              );
+
+            case ResultState.hasData:
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: state.result.restaurants.length,
+                itemBuilder: (context, index) {
+                  var restaurant = state.result.restaurants[index];
+                  return buildRestaurantItem(context, restaurant);
+                },
+              );
+
+            case ResultState.noData:
+              return const ErrorMessage(
+                  'Data Not Found. Internal Server Error');
+
+            default:
+              return const ErrorMessage('There is no Internet connection');
           }
         },
       ),
