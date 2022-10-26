@@ -15,27 +15,33 @@ class SearchPage extends StatelessWidget {
       appBar: searchAppBar(context),
       body: Consumer<RestaurantSearchProvider>(
         builder: (context, state, _) {
-          if (state.state == ResultState.loading) {
-            return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
-              ),
-            );
-          } else if (state.state == ResultState.hasData) {
-            return ListView.builder(
-              shrinkWrap: false,
-              itemCount: state.result.restaurants.length,
-              itemBuilder: (context, index) {
-                var restaurants = state.result.restaurants[index];
-                return buildRestaurantItem(context, restaurants);
-              },
-            );
-          } else if (state.state == ResultState.noData) {
-            return const ErrorMessage('Restaurant Not Found  :(');
-          } else if (state.message.substring(0, 6) == 'Failed') {
-            return const ErrorMessage('There is no Internet connection');
-          } else {
-            return const ErrorMessage('Try to Search by Restaurant Name');
+          switch (state.state) {
+            case ResultState.loading:
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                ),
+              );
+
+            case ResultState.hasData:
+              return ListView.builder(
+                shrinkWrap: false,
+                itemCount: state.result.restaurants.length,
+                itemBuilder: (context, index) {
+                  var restaurants = state.result.restaurants[index];
+                  return buildRestaurantItem(context, restaurants);
+                },
+              );
+
+            case ResultState.noData:
+              return const ErrorMessage('Restaurant Not Found  :(');
+
+            default:
+              if (state.message.substring(0, 6) == 'Failed') {
+                return const ErrorMessage('There is no Internet connection');
+              } else {
+                return const ErrorMessage('Try to Search by Restaurant Name');
+              }
           }
         },
       ),
