@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:restaurant_app/data/models/restaurant_model.dart';
 import 'package:restaurant_app/data/models/restaurant_detail_model.dart';
+import 'package:restaurant_app/data/models/restaurant_review_model.dart';
 
 class ApiService {
   static const String _baseUrl = 'https://restaurant-api.dicoding.dev/';
@@ -33,6 +34,29 @@ class ApiService {
       return RestaurantDetailResult.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load restaurant details');
+    }
+  }
+
+  Future<RestaurantAddReview> restaurantAddReview(
+      String id, String name, String review) async {
+    final response = await http.post(
+      Uri.parse("${_baseUrl}review"),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(
+        {
+          'id': id,
+          'name': name,
+          'review': review,
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return RestaurantAddReview.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to add review');
     }
   }
 }

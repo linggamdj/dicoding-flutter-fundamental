@@ -1,41 +1,48 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
-import 'package:restaurant_app/data/models/restaurant_detail_model.dart';
 
 enum ResultState { loading, noData, hasData, error }
 
-class RestaurantDetailProvider extends ChangeNotifier {
+class RestaurantAddReviewProvider extends ChangeNotifier {
   final ApiService apiService;
   String id;
+  String name;
+  String review;
 
-  RestaurantDetailProvider({required this.apiService, required this.id}) {
-    fetchRestaurantDetail(id);
-  }
+  RestaurantAddReviewProvider({
+    required this.apiService,
+    this.id = '',
+    this.name = '',
+    this.review = '',
+  });
 
-  late RestaurantDetailResult _restaurantDetailResult;
   late ResultState _state;
   String _message = '';
 
   String get message => _message;
-  RestaurantDetailResult get result => _restaurantDetailResult;
   ResultState get state => _state;
 
-  Future<dynamic> fetchRestaurantDetail(String id) async {
+  addReview(String id, String name, String review) {
+    _postAddReview(id, name, review);
+    notifyListeners();
+  }
+
+  Future<dynamic> _postAddReview(String id, String name, String review) async {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      final detail = await apiService.restaurantDetail(id);
-      if (detail.error == true) {
+      final reviewResult =
+          await apiService.restaurantAddReview(id, name, review);
+      // ignore: unnecessary_null_comparison
+      if (reviewResult == null) {
         _state = ResultState.noData;
-        _message = 'Empty Data';
         notifyListeners();
-        return _message;
+        return _message = 'Empty Data';
       } else {
         _state = ResultState.hasData;
-        _restaurantDetailResult = detail;
         notifyListeners();
-        return _restaurantDetailResult;
+        return _message = 'Has Data';
       }
     } catch (e) {
       _state = ResultState.error;

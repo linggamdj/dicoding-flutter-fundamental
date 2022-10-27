@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/commons/style.dart';
+import 'package:restaurant_app/pages/review_page.dart';
 import 'package:restaurant_app/widgets/error_message.dart';
 import 'package:restaurant_app/widgets/item_list.dart';
 import 'package:restaurant_app/widgets/review_list.dart';
@@ -211,14 +212,16 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  Widget itemTitle(String title) {
+  Widget itemTitle(String title, [context, restaurantId]) {
     return Container(
       margin: EdgeInsets.only(
         top: defaultMargin,
         left: defaultMargin,
+        right: 12,
         bottom: 12,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
@@ -226,6 +229,38 @@ class DetailPage extends StatelessWidget {
               fontWeight: semiBold,
             ),
           ),
+          title == 'Reviews'
+              ? TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReviewPage(restaurantId),
+                      ),
+                    ).then(
+                      (value) => Provider.of<RestaurantDetailProvider>(context,
+                              listen: false)
+                          .fetchRestaurantDetail(id),
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    minimumSize: Size.zero,
+                    backgroundColor: primaryColor,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 5,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  child: Text(
+                    'Add Review',
+                    style: whiteTextStyle,
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );
@@ -326,7 +361,7 @@ class DetailPage extends StatelessWidget {
           foodList(detail),
           itemTitle('Drinks'),
           drinkList(detail),
-          itemTitle('Reviews'),
+          itemTitle('Reviews', context, detail.id),
           reviewList(detail),
         ],
       ),
