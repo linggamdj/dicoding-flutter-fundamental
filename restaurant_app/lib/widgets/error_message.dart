@@ -9,11 +9,16 @@ class ErrorMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        message,
-        style: primaryTextStyle.copyWith(
-          fontSize: 16,
-          fontWeight: semiBold,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: defaultMargin,
+        ),
+        child: Text(
+          message,
+          style: primaryTextStyle.copyWith(
+            fontSize: 16,
+            fontWeight: semiBold,
+          ),
         ),
       ),
     );

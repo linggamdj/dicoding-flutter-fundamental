@@ -4,10 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/commons/style.dart';
 import 'package:restaurant_app/provider/restaurant_review_provider.dart';
 
-class ReviewPage extends StatelessWidget {
+class ReviewPage extends StatefulWidget {
   final String id;
   const ReviewPage(this.id, {super.key});
 
+  @override
+  State<ReviewPage> createState() => _ReviewPageState();
+}
+
+class _ReviewPageState extends State<ReviewPage> {
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController(text: '');
@@ -120,13 +125,14 @@ class ReviewPage extends StatelessWidget {
           top: defaultMargin,
         ),
         child: TextButton(
-          onPressed: () {
+          onPressed: () async {
             if (nameController.text != '' && reviewController.text != '') {
-              addReviewProvider.addReview(
-                id,
+              await addReviewProvider.addReview(
+                widget.id,
                 nameController.text,
                 reviewController.text,
               );
+              if (!mounted) return;
               Navigator.pop(context);
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
