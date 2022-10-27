@@ -36,7 +36,7 @@ class SearchPage extends StatelessWidget {
             case ResultState.noData:
               return const ErrorMessage('Restaurant Not Found  :(');
 
-            default:
+            case ResultState.error:
               if (state.message.substring(0, 6) == 'Failed') {
                 return const ErrorMessage('There is no Internet connection');
               } else {

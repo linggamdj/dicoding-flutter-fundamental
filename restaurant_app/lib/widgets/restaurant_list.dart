@@ -48,12 +48,14 @@ class RestaurantList extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(
-                        restaurant.name,
-                        style: primaryTextStyle.copyWith(
-                          color: primaryColor,
-                          fontSize: 16,
-                          fontWeight: semiBold,
+                      Expanded(
+                        child: Text(
+                          restaurant.name,
+                          style: primaryTextStyle.copyWith(
+                            color: primaryColor,
+                            fontSize: 16,
+                            fontWeight: semiBold,
+                          ),
                         ),
                       ),
                     ],
@@ -70,12 +72,14 @@ class RestaurantList extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(
-                        restaurant.city,
-                        style: subtitleTextStyle.copyWith(
-                          fontSize: 16,
+                      Expanded(
+                        child: Text(
+                          restaurant.city,
+                          style: subtitleTextStyle.copyWith(
+                            fontSize: 16,
+                          ),
+                          maxLines: 1,
                         ),
-                        maxLines: 1,
                       ),
                     ],
                   ),
@@ -91,10 +95,12 @@ class RestaurantList extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(
-                        restaurant.rating.toString(),
-                        style: subtitleTextStyle.copyWith(
-                          fontSize: 16,
+                      Expanded(
+                        child: Text(
+                          restaurant.rating.toString(),
+                          style: subtitleTextStyle.copyWith(
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ],

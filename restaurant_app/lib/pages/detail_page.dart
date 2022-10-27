@@ -21,23 +21,30 @@ class DetailPage extends StatelessWidget {
             RestaurantDetailProvider(apiService: ApiService(), id: id),
         child: Consumer<RestaurantDetailProvider>(
           builder: (context, state, _) {
-            if (state.state == ResultState.loading) {
-              return Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
-                ),
-              );
-            } else if (state.state == ResultState.hasData) {
-              return ListView.builder(
-                shrinkWrap: false,
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  var detail = state.result.restaurant;
-                  return buildRestaurantDetailItem(context, detail);
-                },
-              );
-            } else {
-              return const ErrorMessage('There is no Internet connection');
+            switch (state.state) {
+              case ResultState.loading:
+                return Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                  ),
+                );
+
+              case ResultState.hasData:
+                return ListView.builder(
+                  shrinkWrap: false,
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    var detail = state.result.restaurant;
+                    return buildRestaurantDetailItem(context, detail);
+                  },
+                );
+
+              case ResultState.noData:
+                return const ErrorMessage(
+                    'Data Not Found. Internal Server Error');
+
+              case ResultState.error:
+                return const ErrorMessage('There is no Internet connection');
             }
           },
         ),
@@ -132,10 +139,12 @@ class DetailPage extends StatelessWidget {
                           const SizedBox(
                             width: 2,
                           ),
-                          Text(
-                            city,
-                            style: subtitleTextStyle.copyWith(
-                              fontSize: 12,
+                          Expanded(
+                            child: Text(
+                              city,
+                              style: subtitleTextStyle.copyWith(
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ],
@@ -154,10 +163,12 @@ class DetailPage extends StatelessWidget {
                           const SizedBox(
                             width: 2,
                           ),
-                          Text(
-                            rating.toString(),
-                            style: subtitleTextStyle.copyWith(
-                              fontSize: 12,
+                          Expanded(
+                            child: Text(
+                              rating.toString(),
+                              style: subtitleTextStyle.copyWith(
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ],

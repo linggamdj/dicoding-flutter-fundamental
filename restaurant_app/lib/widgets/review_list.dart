@@ -58,11 +58,18 @@ class ReviewList extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          Text(
-            review.date,
-            style: primaryTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+            ),
+            child: Text(
+              review.date,
+              style: primaryTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: semiBold,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
           const SizedBox(

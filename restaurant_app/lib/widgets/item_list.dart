@@ -41,6 +41,7 @@ class ItemList extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(
               vertical: 5,
+              horizontal: 10,
             ),
             child: Text(
               item.name,

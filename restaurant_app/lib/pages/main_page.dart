@@ -37,7 +37,7 @@ class MainPage extends StatelessWidget {
               return const ErrorMessage(
                   'Data Not Found. Internal Server Error');
 
-            default:
+            case ResultState.error:
               return const ErrorMessage('There is no Internet connection');
           }
         },
