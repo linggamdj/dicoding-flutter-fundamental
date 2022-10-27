@@ -16,11 +16,11 @@ class ApiService {
     }
   }
 
-  Future<RestaurantResult> restaurantSearchList(String query) async {
+  Future<RestaurantSearch> restaurantSearchList(String query) async {
     final response = await http.get(Uri.parse("${_baseUrl}search?q=$query"));
 
     if (response.statusCode == 200) {
-      return RestaurantResult.fromJson(json.decode(response.body));
+      return RestaurantSearch.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load restaurant list');
     }
