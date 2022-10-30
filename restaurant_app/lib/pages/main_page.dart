@@ -5,6 +5,7 @@ import 'package:restaurant_app/widgets/restaurant_list.dart';
 import 'package:restaurant_app/widgets/error_message.dart';
 import 'package:restaurant_app/data/models/restaurant_model.dart';
 import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/utils/result_state.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});

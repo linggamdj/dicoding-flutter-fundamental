@@ -8,6 +8,7 @@ import 'package:restaurant_app/widgets/review_list.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:restaurant_app/data/models/restaurant_detail_model.dart';
 import 'package:restaurant_app/provider/restaurant_detail_provider.dart';
+import 'package:restaurant_app/utils/result_state.dart';
 
 class DetailPage extends StatelessWidget {
   final String id;

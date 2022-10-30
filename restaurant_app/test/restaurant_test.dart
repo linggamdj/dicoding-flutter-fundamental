@@ -17,11 +17,14 @@ void main() {
             (request) async {
               final response = {
                 "error": false,
-                "message": "failed",
+                "message": "",
                 "count": 0,
                 "restaurants": [],
               };
-              return http.Response(json.encode(response), 200);
+              return http.Response(
+                json.encode(response),
+                200,
+              );
             },
           );
           expect(
@@ -55,7 +58,10 @@ void main() {
                   "customerReviews": []
                 }
               };
-              return http.Response(json.encode(response), 200);
+              return http.Response(
+                json.encode(response),
+                200,
+              );
             },
           );
 
