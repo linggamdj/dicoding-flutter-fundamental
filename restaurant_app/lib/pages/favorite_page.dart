@@ -32,7 +32,7 @@ class FavoritePage extends StatelessWidget {
             return const ErrorMessage('Your Favorite Restaurant is Empty :(');
 
           case ResultState.error:
-            return const ErrorMessage('There is no Internet connection');
+            return const ErrorMessage('Internal Server Error');
         }
       },
     );
