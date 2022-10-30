@@ -12,27 +12,15 @@ class FavoritePage extends StatelessWidget {
   Widget buildFavoriteList() {
     return Consumer<DatabaseProvider>(
       builder: (context, provider, child) {
-        switch (provider.state) {
-          case ResultState.loading:
-            return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
-              ),
-            );
-
-          case ResultState.hasData:
-            return ListView.builder(
-              itemCount: provider.favorites.length,
-              itemBuilder: (context, index) {
-                return RestaurantList(provider.favorites[index]);
-              },
-            );
-
-          case ResultState.noData:
-            return const ErrorMessage('Your Favorite Restaurant is Empty :(');
-
-          case ResultState.error:
-            return const ErrorMessage('Internal Server Error');
+        if (provider.state == ResultState.hasData) {
+          return ListView.builder(
+            itemCount: provider.favorites.length,
+            itemBuilder: (context, index) {
+              return RestaurantList(provider.favorites[index]);
+            },
+          );
+        } else {
+          return const ErrorMessage('Your Favorite Restaurant is Empty :(');
         }
       },
     );

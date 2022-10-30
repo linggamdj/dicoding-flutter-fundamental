@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/commons/style.dart';
@@ -60,9 +61,24 @@ class DetailPage extends StatelessWidget {
         Stack(
           children: [
             ClipRRect(
-              child: Center(
-                child: Image.network(
-                  'https://restaurant-api.dicoding.dev/images/medium/$id',
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(15),
+              ),
+              child: CachedNetworkImage(
+                imageUrl:
+                    'https://restaurant-api.dicoding.dev/images/medium/$id',
+                placeholder: (context, url) => Center(
+                  child: SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Icon(
+                  Icons.error,
+                  color: primaryColor,
                 ),
               ),
             ),
