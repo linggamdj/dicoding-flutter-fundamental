@@ -4,17 +4,20 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:restaurant_app/commons/navigation.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
+import 'package:restaurant_app/data/preferences/preferences_helper.dart';
 import 'package:restaurant_app/pages/detail_page.dart';
 import 'package:restaurant_app/pages/favorite_page.dart';
 import 'package:restaurant_app/pages/setting_page.dart';
 import 'package:restaurant_app/pages/splash_page.dart';
 import 'package:restaurant_app/pages/search_page.dart';
+import 'package:restaurant_app/provider/preferences_provider.dart';
 import 'package:restaurant_app/provider/restaurant_provider.dart';
 import 'package:restaurant_app/provider/restaurant_review_provider.dart';
 import 'package:restaurant_app/provider/restaurant_search_provider.dart';
 import 'package:restaurant_app/provider/scheduling_provider.dart';
 import 'package:restaurant_app/utils/background_service.dart';
 import 'package:restaurant_app/utils/notification_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -41,18 +44,29 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => RestaurantProvider(apiService: ApiService()),
+          create: (context) => RestaurantProvider(
+            apiService: ApiService(),
+          ),
         ),
         ChangeNotifierProvider(
-          create: (context) =>
-              RestaurantSearchProvider(apiService: ApiService()),
+          create: (context) => RestaurantSearchProvider(
+            apiService: ApiService(),
+          ),
         ),
         ChangeNotifierProvider(
-          create: (context) =>
-              RestaurantAddReviewProvider(apiService: ApiService()),
+          create: (context) => RestaurantAddReviewProvider(
+            apiService: ApiService(),
+          ),
         ),
         ChangeNotifierProvider(
           create: (context) => SchedulingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PreferencesProvider(
+            preferencesHelper: PreferencesHelper(
+              sharedPreferences: SharedPreferences.getInstance(),
+            ),
+          ),
         ),
       ],
       child: MaterialApp(

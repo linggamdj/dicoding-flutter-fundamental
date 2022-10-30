@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:restaurant_app/commons/style.dart';
+import 'package:restaurant_app/pages/home_page.dart';
 import 'package:restaurant_app/pages/main_page.dart';
 
 class SplashPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class SplashPage extends StatelessWidget {
         'assets/images/logo.png',
       ),
       splashIconSize: 500.0,
-      nextScreen: const MainPage(),
+      nextScreen: const HomePage(),
       splashTransition: SplashTransition.fadeTransition,
       duration: 2000,
     );

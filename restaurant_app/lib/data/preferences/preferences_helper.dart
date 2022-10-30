@@ -12,7 +12,7 @@ class PreferencesHelper {
     return prefs.getBool(dailyRestaurant) ?? false;
   }
 
-  void setDailyNews(bool value) async {
+  void setDailyRestaurant(bool value) async {
     final prefs = await sharedPreferences;
     prefs.setBool(dailyRestaurant, value);
   }

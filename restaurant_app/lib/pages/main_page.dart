@@ -1,33 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/commons/style.dart';
-import 'package:restaurant_app/utils/notification_helper.dart';
 import 'package:restaurant_app/widgets/restaurant_list.dart';
 import 'package:restaurant_app/widgets/error_message.dart';
 import 'package:restaurant_app/data/models/restaurant_model.dart';
 import 'package:restaurant_app/provider/restaurant_provider.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   const MainPage({super.key});
-
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  final NotificationHelper _notificationHelper = NotificationHelper();
-
-  @override
-  void initState() {
-    super.initState();
-    _notificationHelper.configureSelectNotificationSubject(context);
-  }
-
-  @override
-  void dispose() {
-    selectNotificationSubject.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,29 +97,15 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
             ),
-            Column(
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.search_outlined,
-                    size: 35,
-                  ),
-                  color: whiteColor,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/search');
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.settings,
-                    size: 35,
-                  ),
-                  color: whiteColor,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/setting');
-                  },
-                ),
-              ],
+            IconButton(
+              icon: const Icon(
+                Icons.search_outlined,
+                size: 35,
+              ),
+              color: whiteColor,
+              onPressed: () {
+                Navigator.pushNamed(context, '/search');
+              },
             ),
           ],
         ),
