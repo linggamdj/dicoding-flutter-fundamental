@@ -11,6 +11,7 @@ Color subtitleColor = const Color(0xff504F5E);
 Color whiteColor = const Color(0xffFFFFFF);
 Color blackColor = const Color(0xff2C3A59);
 Color starColor = const Color(0xffFFCD3C);
+Color switchColor = const Color(0xfffca782);
 
 TextStyle primaryTextStyle = GoogleFonts.poppins(
   color: primaryColor,

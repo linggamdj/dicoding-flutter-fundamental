@@ -34,7 +34,6 @@ class RestaurantAddReviewProvider extends ChangeNotifier {
       notifyListeners();
       final reviewResult =
           await apiService.restaurantAddReview(id, name, review);
-      // ignore: unnecessary_null_comparison
       if (reviewResult == null) {
         _state = ResultState.noData;
         notifyListeners();
