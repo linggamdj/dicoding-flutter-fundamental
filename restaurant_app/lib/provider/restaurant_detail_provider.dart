@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:restaurant_app/data/models/restaurant_detail_model.dart';
 
@@ -25,7 +26,7 @@ class RestaurantDetailProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      final detail = await apiService.restaurantDetail(id);
+      final detail = await apiService.restaurantDetail(id, http.Client());
       if (detail.error == true) {
         _state = ResultState.noData;
         _message = 'Empty Data';

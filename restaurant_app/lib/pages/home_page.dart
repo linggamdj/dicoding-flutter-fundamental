@@ -59,11 +59,30 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _listWidget[_bottomNavIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: primaryColor,
-        currentIndex: _bottomNavIndex,
-        items: _bottomNavBarItems,
-        onTap: _onBottomNavTapped,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(30),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: secondaryColor,
+              spreadRadius: 0,
+              blurRadius: 1,
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(30),
+          ),
+          child: BottomNavigationBar(
+            selectedItemColor: primaryColor,
+            currentIndex: _bottomNavIndex,
+            items: _bottomNavBarItems,
+            onTap: _onBottomNavTapped,
+          ),
+        ),
       ),
     );
   }

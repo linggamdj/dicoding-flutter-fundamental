@@ -4,12 +4,14 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:restaurant_app/commons/navigation.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
+import 'package:restaurant_app/data/db/database_helper.dart';
 import 'package:restaurant_app/data/preferences/preferences_helper.dart';
 import 'package:restaurant_app/pages/detail_page.dart';
 import 'package:restaurant_app/pages/favorite_page.dart';
 import 'package:restaurant_app/pages/setting_page.dart';
 import 'package:restaurant_app/pages/splash_page.dart';
 import 'package:restaurant_app/pages/search_page.dart';
+import 'package:restaurant_app/provider/database_provider.dart';
 import 'package:restaurant_app/provider/preferences_provider.dart';
 import 'package:restaurant_app/provider/restaurant_provider.dart';
 import 'package:restaurant_app/provider/restaurant_review_provider.dart';
@@ -66,6 +68,11 @@ class MyApp extends StatelessWidget {
             preferencesHelper: PreferencesHelper(
               sharedPreferences: SharedPreferences.getInstance(),
             ),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DatabaseProvider(
+            databaseHelper: DatabaseHelper(),
           ),
         ),
       ],

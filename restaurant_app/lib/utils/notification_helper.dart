@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:restaurant_app/data/models/restaurant_model.dart';
@@ -64,7 +65,7 @@ class NotificationHelper {
       android: androidPlatformChannelSpecifics,
     );
 
-    var restaurants = await ApiService().restaurantList();
+    var restaurants = await ApiService().restaurantList(http.Client());
     var randomIndex = Random().nextInt(restaurants.restaurants.length);
     var randomRestaurant = restaurants.restaurants[randomIndex];
 
